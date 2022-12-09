@@ -26,6 +26,7 @@ USE QuanLyBanDienThoai
 CREATE TABLE ThuongHieu (
   id int NOT NULL Primary key,
   ten varchar(300) NOT NULL,
+  hinh_anh varchar(300),
 )
 
 CREATE TABLE SanPham (
@@ -33,6 +34,7 @@ CREATE TABLE SanPham (
   ten varchar(300) NOT NULL,
   mo_ta varchar(1000),
   gia_goc int,
+  hinh_anh varchar(300),
   id_thuong_hieu int,
   Constraint FK_thuong_hieu Foreign key (id_thuong_hieu) 
   References ThuongHieu(id),
@@ -48,6 +50,7 @@ CREATE TABLE ThongSoSanPham (
 
 CREATE TABLE BienTheSanPham (
   id int NOT NULL Primary key,
+  hinh_anh varchar(300),
   id_thong_so_san_pham int NOT NULL,
   id_san_pham int NOT NULL,
   Constraint FK_thongSoSanPham Foreign key (id_thong_so_san_pham)
@@ -75,6 +78,7 @@ CREATE TABLE NhaCungCap (
   id int NOT NULL Primary key,
   ten varchar(300),
   sdt varchar(300),
+  hinh_anh varchar(300)
 )
 
 CREATE TABLE PhieuNhap (
@@ -101,6 +105,7 @@ CREATE TABLE Nhanvien (
   sdt varchar(300) NOT NULL,
   ngay_sinh Date,
   quyen_han varchar(30) NOT NULL,
+  hinh_anh varchar(300),
 )
 
 CREATE TABLE KhachHang (
@@ -108,6 +113,7 @@ CREATE TABLE KhachHang (
   ten varchar(300) NOT NULL,
   sdt varchar(300),
   ngay_sinh Date,
+  hinh_anh varchar(300),
 )
 
 CREATE TABLE HoaDon (
@@ -127,4 +133,44 @@ CREATE TABLE ChiTietHoaDon (
   Constraint FK_BienTheSanPham_ChiTietHoaDon Foreign key (id_bien_the_san_pham) References BienTheSanPham(id),
   Primary key (id_hoa_don, id_bien_the_san_pham),
 )
+
+
+INSERT INTO NHANVIEN
+VALUES
+  (1, 'Ly Tuan Minh', '123', '17/12/2015', 'Ban hang', null),
+  (2, 'Tran Quoc Nam', '321', '3/12/2022', 'Chu cua hang', null)
+
+INSERT INTO KhachHang
+VALUES
+  (1, 'Huynh Ngoc Nam', '123', '17/5/2014', null),
+  (2, 'Le Trung Nguyen', '321', '3/2/2021', null)
+
+INSERT INTO HoaDon
+VALUES
+  (1, 1, 2, GETDATE()),
+  (1, 2, 1, GETDATE()),
+  (1, 1, 1, GETDATE()),
+
+
+INSERT INTO ThuongHieu(id, ten)
+VALUES
+  (1, 'Apple', null),
+  (2, 'Samsung', null)
+
+INSERT INTO SanPham (id, ten, mo_ta, gia_goc, hinh_anh, id_thuong_hieu)
+VALUES
+  (1, 'Iphone 12 pro max', 'Iphone 12 pro max bla bla bla...', 10000000, null, 1),
+  (2, 'Iphone 11 pro max', 'Bla bla bla bla bla bla...', 9000000, null, 1)
+
+INSERT INTO ThongSoSanPham (id, ram, dung_luong, mau_sac, gia_them)
+VALUES
+  (1, '8GB', '128GB', 'Xám', 0),
+  (2, '8GB', '128GB', 'Lam', 0),
+
+
+INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham)
+VALUES
+  (1, null, 1, 1),
+  (1, null, 1, 2),
+
 ```
