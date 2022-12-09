@@ -15,7 +15,7 @@
 8. Thống kê ở dashboard (thống kê số hóa đơn, số khách hàng, số lợi nhuận theo ngày, tháng, năm, liệt kê các sản phẩm bán chạy nhất, xem các đơn hàng đã bán hôm nay)
 
 ## Sơ đồ ERD
-![ERD diagram](/wwwroot/lib/img/ERD.png)
+![ERD diagram](~/Content/img/ERD.png)
 
 Code tạo database
 ```
