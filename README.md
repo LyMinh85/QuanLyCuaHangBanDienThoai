@@ -148,8 +148,8 @@ VALUES
 INSERT INTO HoaDon
 VALUES
   (1, 1, 2, GETDATE()),
-  (1, 2, 1, GETDATE()),
-  (1, 1, 1, GETDATE())
+  (2, 2, 1, GETDATE()),
+  (3, 1, 1, GETDATE())
 
 
 INSERT INTO ThuongHieu(id, ten, hinh_anh)
@@ -171,6 +171,6 @@ VALUES
 INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham)
 VALUES
   (1, null, 1, 1),
-  (1, null, 1, 2)
+  (2, null, 1, 2)
 
 ```
