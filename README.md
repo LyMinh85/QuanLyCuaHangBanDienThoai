@@ -137,22 +137,22 @@ CREATE TABLE ChiTietHoaDon (
 
 INSERT INTO NHANVIEN
 VALUES
-  (1, 'Ly Tuan Minh', '123', '17/12/2015', 'Ban hang', null),
-  (2, 'Tran Quoc Nam', '321', '3/12/2022', 'Chu cua hang', null)
+  (1, 'Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null),
+  (2, 'Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null)
 
 INSERT INTO KhachHang
 VALUES
-  (1, 'Huynh Ngoc Nam', '123', '17/5/2014', null),
-  (2, 'Le Trung Nguyen', '321', '3/2/2021', null)
+  (1, 'Huynh Ngoc Nam', '123', '2015-2-3', null),
+  (2, 'Le Trung Nguyen', '321', '2015-2-3', null)
 
 INSERT INTO HoaDon
 VALUES
   (1, 1, 2, GETDATE()),
   (1, 2, 1, GETDATE()),
-  (1, 1, 1, GETDATE()),
+  (1, 1, 1, GETDATE())
 
 
-INSERT INTO ThuongHieu(id, ten)
+INSERT INTO ThuongHieu(id, ten, hinh_anh)
 VALUES
   (1, 'Apple', null),
   (2, 'Samsung', null)
@@ -165,12 +165,12 @@ VALUES
 INSERT INTO ThongSoSanPham (id, ram, dung_luong, mau_sac, gia_them)
 VALUES
   (1, '8GB', '128GB', 'Xám', 0),
-  (2, '8GB', '128GB', 'Lam', 0),
+  (2, '8GB', '128GB', 'Lam', 0)
 
 
 INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham)
 VALUES
   (1, null, 1, 1),
-  (1, null, 1, 2),
+  (1, null, 1, 2)
 
 ```
