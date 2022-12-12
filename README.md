@@ -33,7 +33,6 @@ CREATE TABLE SanPham (
   id int NOT NULL Primary key,
   ten varchar(300) NOT NULL,
   mo_ta varchar(1000),
-  gia_goc int,
   hinh_anh varchar(300),
   id_thuong_hieu int,
   Constraint FK_thuong_hieu Foreign key (id_thuong_hieu) 
@@ -45,7 +44,6 @@ CREATE TABLE ThongSoSanPham (
   ram varchar(300),
   dung_luong varchar(300),
   mau_sac varchar(300),
-  gia_them int NOT NULL,
 )
 
 CREATE TABLE BienTheSanPham (
@@ -53,6 +51,8 @@ CREATE TABLE BienTheSanPham (
   hinh_anh varchar(300),
   id_thong_so_san_pham int NOT NULL,
   id_san_pham int NOT NULL,
+  gia_ban int NOT NULL,
+  gia_nhap int NOT NULL,
   Constraint FK_thongSoSanPham Foreign key (id_thong_so_san_pham)
   References ThongSoSanPham(id),
   Constraint FK_sanPham Foreign key (id_san_pham)
@@ -159,20 +159,20 @@ VALUES
   (1, 'Apple', null),
   (2, 'Samsung', null)
 
-INSERT INTO SanPham (id, ten, mo_ta, gia_goc, hinh_anh, id_thuong_hieu)
+INSERT INTO SanPham (id, ten, mo_ta, hinh_anh, id_thuong_hieu)
 VALUES
-  (1, 'Iphone 12 pro max', 'Iphone 12 pro max bla bla bla...', 10000000, null, 1),
-  (2, 'Iphone 11 pro max', 'Bla bla bla bla bla bla...', 9000000, null, 1)
+  (1, 'Iphone 12 pro max', 'Iphone 12 pro max bla bla bla...', null, 1),
+  (2, 'Iphone 11 pro max', 'Bla bla bla bla bla bla...', null, 1)
 
-INSERT INTO ThongSoSanPham (id, ram, dung_luong, mau_sac, gia_them)
+INSERT INTO ThongSoSanPham (id, ram, dung_luong, mau_sac)
 VALUES
-  (1, '8GB', '128GB', 'Xám', 0),
-  (2, '8GB', '128GB', 'Lam', 0)
+  (1, '8GB', '128GB', 'Xám'),
+  (2, '8GB', '128GB', 'Lam')
 
 
-INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham)
+INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham, gia_ban, gia_nhap)
 VALUES
-  (1, null, 1, 1),
-  (2, null, 1, 2)
+  (1, null, 1, 1, 100, 50),
+  (2, null, 1, 2, 100, 50)
 
 ```
