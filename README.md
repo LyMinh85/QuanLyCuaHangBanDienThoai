@@ -139,8 +139,8 @@ CREATE TABLE ChiTietHoaDon (
 
 INSERT INTO NHANVIEN
 VALUES
-  (1, 'Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null, "lyminh8565", "123456"),
-  (2, 'Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null, "admin", "admin")
+  (1, 'Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null, 'lyminh8565', '123456'),
+  (2, 'Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null, 'admin', 'admin')
 
 INSERT INTO KhachHang
 VALUES
