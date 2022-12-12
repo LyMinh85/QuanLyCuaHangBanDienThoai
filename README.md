@@ -106,6 +106,8 @@ CREATE TABLE Nhanvien (
   ngay_sinh Date,
   quyen_han varchar(30) NOT NULL,
   hinh_anh varchar(300),
+  usernane varchar(300),
+  password varchar(300)
 )
 
 CREATE TABLE KhachHang (
@@ -137,8 +139,8 @@ CREATE TABLE ChiTietHoaDon (
 
 INSERT INTO NHANVIEN
 VALUES
-  (1, 'Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null),
-  (2, 'Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null)
+  (1, 'Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null, "lyminh8565", "123456"),
+  (2, 'Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null, "admin", "admin")
 
 INSERT INTO KhachHang
 VALUES
