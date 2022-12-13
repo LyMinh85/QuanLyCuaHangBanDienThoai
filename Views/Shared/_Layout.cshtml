@@ -23,9 +23,11 @@
     <link href="~/Scripts/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="~/Scripts/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="~/Scripts/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="~/Content/fileinput.min.css" rel="stylesheet" />
 
     <!-- Template Main CSS File -->
     <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet" />
 
     <!-- =======================================================
     * Template Name: NiceAdmin - v2.4.1
@@ -122,7 +124,7 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="#">
+                        <a href="@Url.Action("Index", "SanPham")">
                             <i class="bi bi-circle"></i><span>Sản phẩm</span>
                         </a>
                     </li>
@@ -204,11 +206,14 @@
         </div>
     </footer><!-- End Footer -->
 
-    <script src="~/Scripts/main.js"></script>
+    <script src="~/Scripts/nice-admin.js"></script>
+    <script src="~/Scripts/JQuery.js"></script>
     <script src="~/Scripts/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/vendor/chart.js/chart.min.js"></script>
     <script src="~/Scripts/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="~/Scripts/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/fileinput.min.js"></script>
+
     <script src="~/Scripts/site.js" asp-append-version="true"></script>
 </body>
 
