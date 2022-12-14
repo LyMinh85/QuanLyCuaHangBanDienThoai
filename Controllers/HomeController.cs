@@ -10,6 +10,11 @@ namespace QuanLyCuaHangBanDienThoai.Controllers
     {
         public ActionResult Index()
         {
+            var username = Session["tenNv"];
+            if (username == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
             return View();
         }
 
