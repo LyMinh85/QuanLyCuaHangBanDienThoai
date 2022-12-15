@@ -25,14 +25,14 @@ USE QuanLyBanDienThoai
 
 CREATE TABLE ThuongHieu (
   id int NOT NULL Primary key,
-  ten varchar(300) NOT NULL,
+  ten nvarchar(300) NOT NULL,
   hinh_anh varchar(300),
 )
 
 CREATE TABLE SanPham (
   id int NOT NULL Primary key,
-  ten varchar(300) NOT NULL,
-  mo_ta varchar(1000),
+  ten nvarchar(300) NOT NULL,
+  mo_ta nvarchar(1000),
   hinh_anh varchar(300),
   id_thuong_hieu int,
   Constraint FK_thuong_hieu Foreign key (id_thuong_hieu) 
@@ -42,8 +42,8 @@ CREATE TABLE SanPham (
 CREATE TABLE ThongSoSanPham (
   id int NOT NULL Primary key,
   ram varchar(300),
-  dung_luong varchar(300),
-  mau_sac varchar(300),
+  dung_luong nvarchar(300),
+  mau_sac nvarchar(300),
 )
 
 CREATE TABLE BienTheSanPham (
@@ -51,8 +51,8 @@ CREATE TABLE BienTheSanPham (
   hinh_anh varchar(300),
   id_thong_so_san_pham int NOT NULL,
   id_san_pham int NOT NULL,
-  gia_ban int NOT NULL,
-  gia_nhap int NOT NULL,
+  gia_ban money NOT NULL,
+  gia_nhap money NOT NULL,
   Constraint FK_thongSoSanPham Foreign key (id_thong_so_san_pham)
   References ThongSoSanPham(id),
   Constraint FK_sanPham Foreign key (id_san_pham)
@@ -61,8 +61,8 @@ CREATE TABLE BienTheSanPham (
 
 CREATE TABLE Kho (
   id int NOT NULL Primary key,
-  ten varchar(300),
-  dia_chi varchar(300),
+  ten nvarchar(300),
+  dia_chi nvarchar(300),
 )
 
 CREATE TABLE SanPhamTonKho (
@@ -76,7 +76,7 @@ CREATE TABLE SanPhamTonKho (
 
 CREATE TABLE NhaCungCap (
   id int NOT NULL Primary key,
-  ten varchar(300),
+  ten nvarchar(300),
   sdt varchar(300),
   hinh_anh varchar(300)
 )
@@ -101,10 +101,10 @@ CREATE TABLE ChiTietPhieuNhap (
 
 CREATE TABLE Nhanvien (
   id int NOT NULL Primary key,
-  ten varchar(300) NOT NULL,
+  ten nvarchar(300) NOT NULL,
   sdt varchar(300) NOT NULL,
   ngay_sinh Date,
-  quyen_han varchar(30) NOT NULL,
+  quyen_han nvarchar(30) NOT NULL,
   hinh_anh varchar(300),
   usernane varchar(300),
   password varchar(300)
@@ -112,7 +112,7 @@ CREATE TABLE Nhanvien (
 
 CREATE TABLE KhachHang (
   id int NOT NULL Primary key,
-  ten varchar(300) NOT NULL,
+  ten nvarchar(300) NOT NULL,
   sdt varchar(300),
   ngay_sinh Date,
   hinh_anh varchar(300),
@@ -174,5 +174,4 @@ INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham, gia
 VALUES
   (1, null, 1, 1, 100, 50),
   (2, null, 1, 2, 100, 50)
-
 ```
