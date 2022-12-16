@@ -24,13 +24,13 @@ CREATE DATABASE QuanLyBanDienThoai;
 USE QuanLyBanDienThoai
 
 CREATE TABLE ThuongHieu (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ten nvarchar(300) NOT NULL,
   hinh_anh varchar(300),
 )
 
 CREATE TABLE SanPham (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ten nvarchar(300) NOT NULL,
   mo_ta nvarchar(1000),
   hinh_anh varchar(300),
@@ -40,14 +40,14 @@ CREATE TABLE SanPham (
 );
 
 CREATE TABLE ThongSoSanPham (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ram varchar(300),
   dung_luong nvarchar(300),
   mau_sac nvarchar(300),
 )
 
 CREATE TABLE BienTheSanPham (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   hinh_anh varchar(300),
   id_thong_so_san_pham int NOT NULL,
   id_san_pham int NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE BienTheSanPham (
 )
 
 CREATE TABLE Kho (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ten nvarchar(300),
   dia_chi nvarchar(300),
 )
@@ -75,14 +75,15 @@ CREATE TABLE SanPhamTonKho (
 )
 
 CREATE TABLE NhaCungCap (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ten nvarchar(300),
   sdt varchar(300),
-  hinh_anh varchar(300)
+  diachi nvarchar(300),
+  ma_thue varchar(300)
 )
 
 CREATE TABLE PhieuNhap (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   id_nha_cung_cap int NOT NULL, 
   ngay_tao_phieu Date NOT NULL,
   Constraint FK_NhaCungCap_PhieuNhap Foreign key (id_nha_cung_cap)
@@ -100,7 +101,7 @@ CREATE TABLE ChiTietPhieuNhap (
 
 
 CREATE TABLE Nhanvien (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ten nvarchar(300) NOT NULL,
   sdt varchar(300) NOT NULL,
   ngay_sinh Date,
@@ -111,7 +112,7 @@ CREATE TABLE Nhanvien (
 )
 
 CREATE TABLE KhachHang (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   ten nvarchar(300) NOT NULL,
   sdt varchar(300),
   ngay_sinh Date,
@@ -119,7 +120,7 @@ CREATE TABLE KhachHang (
 )
 
 CREATE TABLE HoaDon (
-  id int NOT NULL Primary key,
+  id int NOT NULL Identity Primary key,
   id_khach_hang int NOT NULL,
   id_nhan_vien int NOT NULL,
   ngay_tao_phieu Date NOT NULL,
@@ -139,39 +140,50 @@ CREATE TABLE ChiTietHoaDon (
 
 INSERT INTO NHANVIEN
 VALUES
-  (1, 'Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null, 'lyminh8565', '123456'),
-  (2, 'Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null, 'admin', 'admin')
+  ('Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null, 'lyminh8565', '123456'),
+  ('Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null, 'admin', 'admin')
 
 INSERT INTO KhachHang
 VALUES
-  (1, 'Huynh Ngoc Nam', '123', '2015-2-3', null),
-  (2, 'Le Trung Nguyen', '321', '2015-2-3', null)
+  ('Huynh Ngoc Nam', '123', '2015-2-3', null),
+  ('Le Trung Nguyen', '321', '2015-2-3', null)
 
 INSERT INTO HoaDon
 VALUES
-  (1, 1, 2, GETDATE()),
-  (2, 2, 1, GETDATE()),
-  (3, 1, 1, GETDATE())
+  (GETDATE()),
+  (GETDATE()),
+  (3, GETDATE())
 
 
 INSERT INTO ThuongHieu(id, ten, hinh_anh)
 VALUES
-  (1, 'Apple', null),
-  (2, 'Samsung', null)
+  ('Apple', null),
+  ('Samsung', null)
 
 INSERT INTO SanPham (id, ten, mo_ta, hinh_anh, id_thuong_hieu)
 VALUES
-  (1, 'Iphone 12 pro max', 'Iphone 12 pro max bla bla bla...', null, 1),
-  (2, 'Iphone 11 pro max', 'Bla bla bla bla bla bla...', null, 1)
+  ('Iphone 12 pro max', 'Iphone 12 pro max bla bla bla...', null, 1),
+  ('Iphone 11 pro max', 'Bla bla bla bla bla bla...', null, 1)
 
 INSERT INTO ThongSoSanPham (id, ram, dung_luong, mau_sac)
 VALUES
-  (1, '8GB', '128GB', 'Xám'),
-  (2, '8GB', '128GB', 'Lam')
+  ('8GB', '128GB', 'Xám'),
+  ('8GB', '128GB', 'Lam')
 
 
 INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham, gia_ban, gia_nhap)
 VALUES
-  (1, null, 1, 1, 100, 50),
-  (2, null, 1, 2, 100, 50)
+  (null, 100, 50),
+  (null, 100, 50)
+
+
+Insert into NhaCungCap 
+Values
+	('Apple', '12345', null),
+	('FPT shop', '3244', null )
+
+Insert into Kho
+Values
+	('Kho Q5', 'bla bla bla'),
+	('Kho Q1', 'Quan 1 gi do')
 ```
