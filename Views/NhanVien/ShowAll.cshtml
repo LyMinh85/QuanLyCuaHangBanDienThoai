@@ -1,0 +1,63 @@
+﻿@model IEnumerable<QuanLyCuaHangBanDienThoai.Models.Nhanvien>
+
+@{
+    ViewBag.Title = "Danh Sách Nhân Viên";
+}
+
+@functions{
+    public string getDateFormat(DateTime? date)
+    {
+        if (date == null)
+        {
+            return "";
+        }
+        DateTime dateTime = date ?? DateTime.Now;
+        return dateTime.ToString("dd/M/yyyy");
+    }
+}
+<h2>Danh Sách Nhân VIên</h2>
+
+<p>
+    @Html.ActionLink("Thêm Nhân Viên", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Họ và tên
+        </th>
+        <th>
+            SĐT
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th>
+            Vai trò
+        </th>
+        
+       
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sdt)
+        </td>
+        <td>
+            @getDateFormat(item.ngay_sinh)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.quyen_han)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

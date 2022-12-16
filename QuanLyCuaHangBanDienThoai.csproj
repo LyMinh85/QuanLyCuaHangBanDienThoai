@@ -136,9 +136,11 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KhoHangController.cs" />
     <Compile Include="Controllers\NhaCungCapController.cs" />
+    <Compile Include="Controllers\NhanVienController.cs" />
     <Compile Include="Controllers\PhieuNhapController.cs" />
     <Compile Include="Controllers\SanPhamController.cs" />
     <Compile Include="Controllers\ThuongHieuController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VariantsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1062,6 +1064,10 @@
     <Content Include="Views\KhoHang\Details.cshtml" />
     <Content Include="Views\KhoHang\Edit.cshtml" />
     <Content Include="Views\KhoHang\Index.cshtml" />
+    <Content Include="Views\NhanVien\Create.cshtml" />
+    <Content Include="Views\NhanVien\Edit.cshtml" />
+    <Content Include="Views\NhanVien\ShowAll.cshtml" />
+    <Content Include="Views\User\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\vendor\tinymce\tinymce.d.ts" />

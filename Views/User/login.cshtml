@@ -1,0 +1,152 @@
+﻿@model QuanLyCuaHangBanDienThoai.Models.Nhanvien
+
+@{
+    ViewBag.Title = "login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Quản lý bán điện thoại</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Content/img/favicon.png" rel="icon">
+    <link href="~/Content/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Scripts/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Scripts/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Scripts/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Scripts/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Scripts/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="~/Content/fileinput.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="~/Content/style.css" rel="stylesheet">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <!-- =======================================================
+    * Template Name: NiceAdmin - v2.4.1
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body class="p-0">
+
+
+    <main>
+        <div class="container">
+
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-0">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                    <span class="d-none d-lg-block">Hệ thống quản lý bán Điện Thoại</span>
+                                </a>
+                            </div><!-- End Logo -->
+
+                            <div class="card mb-3">
+
+                                <div class="card-body">
+
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Đăng nhập</h5>
+                                        <p class="text-center small">Chào mừng bạn đã đến với chúng tôi</p>
+                                    </div>
+
+                                    <form method="post" action="/user/login" class="row g-3 needs-validation" novalidate>
+
+                                        <div class="col-12">
+
+                                            <div class="row g-3 align-items-center">
+                                                <div class="col-auto">
+                                                    <label for="inputPassword6" class="col-form-label">Tài khoản:</label>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <input name="username" type="text" id="inputUser" class="form-control" aria-describedby="passwordHelpInline">
+                                                </div>
+                                                <div>
+                                                    @ViewData["invalidUsername"]
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="row g-3 align-items-center">
+                                                    <div class="col-auto">
+                                                        <label for="inputPassword6" class="col-form-label">Mật khẩu:</label>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <input name="password" type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                                    </div>
+                                                    <div>
+                                                        @ViewData["invalidPassword"]
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+                                            <div class="col-12">
+                                                <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
+                                                <div>
+                                                    @ViewData["loginSuccess"]
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </footer><!-- End Footer -->
+
+    <script src="~/Scripts/nice-admin.js"></script>
+    <script src="~/Scripts/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/vendor/chart.js/chart.min.js"></script>
+    <script src="~/Scripts/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/Scripts/vendor/tinymce/tinymce.min.js"></script>
+
+    <script src="~/Scripts/site.js" asp-append-version="true"></script>
+</body>
+
+</html>
+
+
