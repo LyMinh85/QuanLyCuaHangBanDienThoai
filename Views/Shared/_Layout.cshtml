@@ -129,12 +129,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="bi bi-circle"></i><span>Biến thể sản phẩm</span>
+                        <a href="@Url.Action("Index", "Variants")">
+                            <i class="bi bi-circle"></i><span>Quản lý tồn kho</span>
                         </a>
                     </li>
                 </ul>
             </li><!-- End Sản phảm Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="@Url.Action("Index", "ThuongHieu")">
+                    <i class="bi bi-card-list"></i>
+                    <span>Thương hiệu</span>
+                </a>
+            </li><!-- End Hóa đơn Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#">
@@ -144,14 +151,15 @@
             </li><!-- End Hóa đơn Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="@Url.Action("Index", "Customer")">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Khách hàng</span>
                 </a>
             </li><!-- End Khách hàng Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed"
+                   href="@Url.Action("Index", "PhieuNhap", new { page = 1 })">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Phiếu nhập</span>
                 </a>
@@ -160,21 +168,22 @@
             <li class="nav-heading">Người quản lý</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed"
+                   href="/api/apiSanPham?page=1">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Nhân viên</span>
                 </a>
             </li><!-- End Nhân viên Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="@Url.Action("Index", "NhaCungCap")">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Nhà cung cấp</span>
                 </a>
             </li><!-- End Nhà Cung Cấp Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="@Url.Action("Index", "KhoHang")">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Kho</span>
                 </a>

@@ -1,0 +1,296 @@
+﻿@using QuanLyCuaHangBanDienThoai.Models
+@model IQueryable<NhaCungCap>
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isError = ViewBag.isError as string;
+    var listKho = ViewBag.listKho as IQueryable<Kho>;
+}
+
+<form method="post" action="@Url.Action("Create", "PhieuNhap")" @isError>
+    <div class="d-flex flex-row justify-content-between mb-3">
+        <h2>Tạo phiếu nhập hàng</h2>
+        <div>
+            <a href="@Url.Action("Index", "PhieuNhap")" class="btn btn-outline-primary mx-1">Thoát</a>
+            <button type="submit" class="btn btn-primary mx-1">Lưu</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Thông tin phiếu nhập</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                Nhà cung cấp
+                            </label>
+                            <div class="d-flex flex-row">
+                                <select class="form-select h-50 w-50 me-2" name="idNhaCungCap">
+                                    @foreach (var ncc in Model)
+                                    {
+                                        <option value="@ncc.id">@ncc.ten</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                Chọn kho
+                            </label>
+                            <div class="d-flex flex-row">
+                                <select class="form-select h-50 w-50 me-2" name="idKho">
+                                    @foreach (var kho in listKho)
+                                    {
+                                        <option value="@kho.id">@kho.ten</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Begin Sản phẩm -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Các sản phẩm</div>
+                    <table id="variants" class="table table-responsive table-hover bg-white align-middle text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">
+                                Hình ảnh
+                            </th>
+                            <th scope="col">
+                                Sản phẩm
+                            </th>
+                            <th scope="col">
+                                Tùy chọn
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody></tbody>
+                        
+                    </table>
+                    <nav class="d-flex flex-row justify-content-end" aria-label="Page navigation">
+                        <ul class="pagination">
+                            
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div><!-- End Sản phẩm -->
+
+        <!-- Begin Chi tiết phiếu nhập -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Chi tiết phiếu nhập</div>
+                    <table class="table table-responsive table-hover bg-white align-middle text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">
+                                Sản phẩm
+                            </th>
+                            <th scope="col">
+                                Giá nhập
+                            </th>
+                            <th scope="col">
+                                Số lượng nhập
+                            </th>
+                            <th scope="col">
+                                Tùy chọn
+                            </th>
+                        </tr>
+                        </thead>
+
+                        <tbody id="chiTietPhieuNhap">
+                        </tbody>
+                        
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Begin Chi tiết phiếu nhập -->
+
+        <textarea id="listCtpn" class="form-control d-none" name="listCtpn"></textarea>
+
+    </div>
+
+</form>
+
+
+<script>
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const tableVariantBody = document.querySelector('#variants tbody');
+        const chiTietPhieuNhapEle = document.querySelector('#chiTietPhieuNhap');
+        let listCtpn = [];
+        const textAreaListCtpn = document.querySelector('#listCtpn');
+
+        fetchVariants(1, null);
+
+
+        function insertVariantToChiTietPhieuNhap(variant) {
+            // Check
+            for (let ctpn of listCtpn) {
+                if (variant.id === ctpn.id) {
+                    alert('Đã thêm vào phiếu nhập');
+                    return;
+                }
+            }
+
+            const tr = document.createElement('tr');
+
+            // Col name
+            const tdTen = document.createElement('td');
+            const ten = variant.ten ? variant.ten : '';
+            const mau_sac = variant.mau_sac ? variant.mau_sac : '';
+            const dung_luong = variant.dung_luong ? variant.dung_luong : '';
+            const ram = variant.ram !== null ? variant.ram : '';
+            tdTen.append(`${ten} ${mau_sac} ${dung_luong} ${ram}`);
+
+            // Col giaNhap
+            const tdGiaNhap = document.createElement('td');
+            tdGiaNhap.append(`${variant.gia_nhap}`);
+
+            // Col soLuong
+            const tdSoLuong = document.createElement('td');
+            tdSoLuong.className = 'd-flex flex-row justify-content-center';
+            const inputSoLuong = document.createElement('input');
+            inputSoLuong.className = 'form-control w-50'
+            inputSoLuong.setAttribute('name', `${variant.id}`);
+            inputSoLuong.setAttribute('value', 1);
+            inputSoLuong.setAttribute('autocomplete', 'off');
+            inputSoLuong.setAttribute('type', 'number');
+            inputSoLuong.addEventListener('input', (e) => {
+                listCtpn.forEach((ctpn) => {
+                    if (ctpn.id === parseInt(e.target.name)) {
+                        ctpn.so_luong = parseInt(e.target.value);
+                        textAreaListCtpn.value = JSON.stringify(listCtpn);
+                    }
+                });
+            });
+            tdSoLuong.append(inputSoLuong);
+
+            //Col button
+            const tdButton = document.createElement('td');
+            const button = document.createElement('button');
+            button.className = 'btn btn-outline-danger mx-2';
+            button.setAttribute('type', 'button');
+            button.textContent = 'Xóa';
+            button.dataset.id = variant.id;
+            button.addEventListener('click', async (e) => {
+                const id = parseInt(e.target.dataset.id);
+                const tr = e.target.parentNode.parentNode;
+                tr.parentNode.removeChild(tr);
+                listCtpn = listCtpn.filter(ctpn => ctpn.id !== id);
+                textAreaListCtpn.value = JSON.stringify(listCtpn);
+            });
+            tdButton.append(button);
+
+            // create ctpn
+            const ctpn = {
+                id: variant.id,
+                gia_nhap: variant.gia_nhap,
+                so_luong: 0,
+            };
+
+            listCtpn.push(ctpn);
+            textAreaListCtpn.value = JSON.stringify(listCtpn);
+
+            tr.append(tdTen, tdGiaNhap, tdSoLuong, tdButton);
+            chiTietPhieuNhapEle.appendChild(tr);
+        }
+
+
+        function insertRowToTable(table, variants) {
+            const tr = document.createElement('tr');
+            //Col img
+            const tdHinhAnh = document.createElement('td');
+            tdHinhAnh.style.width = '100px';
+            tdHinhAnh.style.height = '100px';
+            const img = document.createElement('img');
+            img.classList.add('img-thumbnail');
+            img.src = variants.hinh_anh == null ? "/Content/img/default-thumbnail.png" : variants.hinh_anh;
+            tdHinhAnh.append(img);
+
+            // Col name
+            const tdTen = document.createElement('td');
+            tdTen.append(`${variants.ten} ${variants.mau_sac} ${variants.dung_luong} ${variants.ram}`);
+
+            // Col button
+            const tdButton = document.createElement('td');
+            const button = document.createElement('button');
+            button.className = 'btn btn-outline-primary mx-2';
+            button.setAttribute('type', 'button');
+            button.textContent = 'Thêm';
+            button.addEventListener('click', () => {
+                insertVariantToChiTietPhieuNhap(variants);
+            });
+            tdButton.append(button);
+
+            tr.append(tdHinhAnh, tdTen, tdButton);
+            table.append(tr);
+        }
+
+        function insertPageIntoPagination(paginationEle, page, currentPage) {
+            const pageItem = document.createElement('li');
+            pageItem.classList.add('page-item');
+            const pageLink = document.createElement('button');
+            pageLink.classList.add('page-link');
+            pageLink.setAttribute('type', 'button');
+            if (currentPage == page) {
+                pageLink.classList.add('active');
+            }
+            pageLink.textContent = page;
+            pageLink.addEventListener('click', () => {
+                fetchVariants(page, null);
+            });
+            pageItem.append(pageLink);
+            paginationEle.append(pageItem);
+        }
+
+        function fetchVariants(page, query) {
+            let url = `/api/apiSanPham?page=${page}`;
+            if (query) {
+                url += `&query=${query}`;
+            }
+            fetch(url)
+                .then((res) => res.json())
+                .then((data) => {
+                    // Clear content
+                    tableVariantBody.innerHTML = '';
+
+                    const products = data.variants;
+                    for (const product of products) {
+                        insertRowToTable(tableVariantBody, product);
+                    }
+
+                    const paginationEle = document.querySelector('ul.pagination');
+                    const pageCount = data.pageCount;
+                    const currentPage = data.page;
+
+                    // Clear pagination content
+                    paginationEle.innerHTML = '';
+
+                    for (let i = 1; i <= pageCount; i++) {
+                        insertPageIntoPagination(paginationEle, i, currentPage);
+                    }
+
+                });
+        }
+    });
+    
+</script>

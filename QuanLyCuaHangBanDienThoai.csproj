@@ -48,13 +48,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -120,15 +130,32 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiSanPhamController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KhoHangController.cs" />
+    <Compile Include="Controllers\NhaCungCapController.cs" />
+    <Compile Include="Controllers\PhieuNhapController.cs" />
+    <Compile Include="Controllers\SanPhamController.cs" />
+    <Compile Include="Controllers\ThuongHieuController.cs" />
+    <Compile Include="Controllers\VariantsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Customer.css" />
+    <Content Include="Content\fileinput.min.css" />
     <Content Include="Content\img\apple-touch-icon.png" />
     <Content Include="Content\img\card.jpg" />
+    <Content Include="Content\img\default-thumbnail.png" />
     <Content Include="Content\img\ERD.png" />
     <Content Include="Content\img\favicon.png" />
     <Content Include="Content\img\logo.png" />
@@ -151,12 +178,16 @@
     <Content Include="Content\img\slides-2.jpg" />
     <Content Include="Content\img\slides-3.jpg" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\tom-select.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\JQuery.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\nice-admin.js" />
+    <Content Include="Scripts\tom-select.js" />
     <Content Include="Scripts\vendor\apexcharts\apexcharts.min.js" />
     <Content Include="Scripts\vendor\bootstrap-icons\bootstrap-icons.css" />
     <Content Include="Scripts\vendor\bootstrap-icons\index.html" />
@@ -886,6 +917,9 @@
     <Content Include="Scripts\vendor\tinymce\themes\silver\theme.min.js" />
     <Content Include="Scripts\vendor\tinymce\tinymce.js" />
     <Content Include="Scripts\vendor\tinymce\tinymce.min.js" />
+    <Content Include="Views\PhieuNhap\Create.cshtml" />
+    <Content Include="Views\PhieuNhap\Index.cshtml" />
+    <Content Include="Views\Variants\Delete.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -903,13 +937,21 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Content\img\products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Models\DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <Content Include="Scripts\vendor\apexcharts\locales\ar.json" />
     <Content Include="Scripts\vendor\apexcharts\locales\ca.json" />
@@ -995,11 +1037,37 @@
     <Content Include="Scripts\vendor\tinymce\composer.json" />
     <Content Include="Scripts\vendor\tinymce\package.json" />
     <Content Include="Scripts\vendor\tinymce\README.md" />
+    <Content Include="Views\SanPham\Index.cshtml" />
+    <Content Include="Views\SanPham\Create.cshtml" />
+    <Content Include="Views\SanPham\Detail.cshtml" />
+    <Content Include="Views\SanPham\ShowVariant.cshtml" />
+    <Content Include="Views\SanPham\Edit.cshtml" />
+    <Content Include="Views\PhieuNhap\Detail.cshtml" />
+    <Content Include="Views\Variants\Index.cshtml" />
+    <Content Include="Views\NhaCungCap\Create.cshtml" />
+    <Content Include="Views\NhaCungCap\Delete.cshtml" />
+    <Content Include="Views\NhaCungCap\Edit.cshtml" />
+    <Content Include="Views\NhaCungCap\Index.cshtml" />
+    <Content Include="Views\ThuongHieu\Create.cshtml" />
+    <Content Include="Views\ThuongHieu\Delete.cshtml" />
+    <Content Include="Views\ThuongHieu\Details.cshtml" />
+    <Content Include="Views\ThuongHieu\Edit.cshtml" />
+    <Content Include="Views\ThuongHieu\Index.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Search.cshtml" />
+    <Content Include="Views\KhoHang\Create.cshtml" />
+    <Content Include="Views\KhoHang\Delete.cshtml" />
+    <Content Include="Views\KhoHang\Details.cshtml" />
+    <Content Include="Views\KhoHang\Edit.cshtml" />
+    <Content Include="Views\KhoHang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\vendor\tinymce\tinymce.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tạo mới thương hiệu</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <p>
+            Tên thương hiệu :
+            @Html.TextBox("ten") 
+            <font color=red>@ViewData["Lỗi"]</font>
+        </p>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</div>

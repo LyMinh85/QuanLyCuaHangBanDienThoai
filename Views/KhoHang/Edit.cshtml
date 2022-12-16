@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-bg-primary text-center ">Chỉnh sửa kho </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div>
+        <div class="form-label">
+            <label for="usr">Tên kho: </label>
+            @Html.TextBox("ten",null, new { @class = "form-control" })
+        <font color="red">
+            @ViewData["LoiTen"]
+        </font>
+        </div>
+        <div class="form-label">
+            <label for="usr">Địa chỉ: </label>
+            @Html.TextBox("dia_chi", null, new { @class = "form-control" })
+        <font color="red">
+            @ViewData["LoiDC"]
+        </font>
+        </div>
+        <div class="btn-group form-label">
+            <button type="submit" class=" btn btn-primary"> Save </button>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

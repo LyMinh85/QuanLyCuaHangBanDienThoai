@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-bg-primary text-center ">Thêm mới sản phâm </h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div >
+        <div class="form-label">
+            <label for="usr">Tên kho:</label>
+            <input type="text" class="form-control" id="TenKho" name="TenKho" placeholder="Nhập tên kho" value="@ViewBag.StrTenKho">
+            <font color=red>
+                @ViewData["LoiTen"]
+                @(new HtmlString(ViewData["ScriptTenKho"].ToString()))
+                
+
+            </font>
+        </div>
+        <div class="form-label">
+            <label for="usr">Địa chỉ:</label>
+            <input type="text" class="form-control" id="dia_chi" name="dia_chi" placeholder="Nhập địa kho" value="@ViewBag.StrDCKho" >
+            <font color="red">
+                @ViewData["LoiDC"]
+                @(new HtmlString(ViewData["ScriptDCKho"].ToString()))
+            </font>
+        </div>
+        <div class="btn-group form-label">
+            <button type="submit" class=" btn btn-primary" >Create</button>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

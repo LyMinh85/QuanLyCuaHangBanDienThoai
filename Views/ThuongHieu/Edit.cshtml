@@ -1,0 +1,25 @@
+﻿@model QuanLyCuaHangBanDienThoai.Models.ThuongHieu
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chỉnh sửa</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="editor-field">
+            Tên thương hiệu :
+            @Html.TextBoxFor(item => Model.ten)
+            @ViewData["Lỗi"]
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</div>

@@ -1,0 +1,62 @@
+﻿@using QuanLyCuaHangBanDienThoai.Models
+@model IQueryable<BienTheSanPham>
+
+@{
+    ViewBag.Title = "ShowVariant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions{
+    public string getImageSrc(String imgSrc)
+    {
+        return String.IsNullOrEmpty(imgSrc) ? "/Content/img/default-thumbnail.png" : imgSrc;
+    }
+
+    public string getVariantName(BienTheSanPham item)
+    {
+        return item.SanPham.ten + " " + item.ThongSoSanPham.mau_sac + " " + item.ThongSoSanPham.dung_luong + " " + item.ThongSoSanPham.ram;
+    }
+}
+
+<div class="d-flex flex-row justify-content-between mb-3">
+    <h2>Sản phẩm</h2>
+    <div>
+        <a href="/sanpham/create" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i>Thêm sản phẩm</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">Danh sách sản phẩm</div>
+        <table class="table table-hover bg-white align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Hình ảnh
+                    </th>
+                    <th scope="col">
+                        Tên
+                    </th>
+
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row" style="width: 100px; height: 100px;">
+                        <img src="@getImageSrc(item.hinh_anh)" class="img-thumbnail">
+                    </td>
+                    <td>
+                        <a class="link-primary" href="/sanpham/detail/@item.id">
+                            @getVariantName(item)
+                        </a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,118 @@
+﻿@model IQueryable<QuanLyCuaHangBanDienThoai.Models.PhieuNhap>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions{
+
+    private string getActivePage(int page)
+    {
+        var currentPage = ViewBag.page as int?;
+        if (currentPage == page)
+        {
+            return "active";
+        }
+        return "";
+    }
+
+    private string getDateFormat(DateTime? date)
+    {
+        if (date == null)
+        {
+            return "";
+        }
+        var notNullDate = date ?? DateTime.Now;
+        return notNullDate.ToString("dd/M/yyyy");
+    }
+
+}
+
+
+<div class="d-flex flex-row justify-content-between mb-3">
+    <h2>Phiếu nhập</h2>
+    <div>
+        <a href="@Url.Action("Create", "PhieuNhap")" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-2"></i>
+            Tạo phiếu nhập
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <!-- Begin Search Bar -->
+        <header class="header d-flex align-items-center justify-content-between ps-0" style="box-shadow: none;">
+            <div class="card-title">Danh sách phiếu nhập</div>
+            <div class="search-bar" style="z-index: 0; background: none; position: inherit; visibility: visible; opacity: 1; box-shadow: none">
+                <form class="search-form d-flex align-items-center" 
+                      method="POST" 
+                      action="@Url.Action("Search", "PhieuNhap")">
+                    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                    <button type="submit" title="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </header><!-- End Search Bar -->
+        <table class="table table-hover bg-white align-middle">
+            <thead>
+            <tr class="text-center">
+                <th scope="col">
+                    ID
+                </th>
+                <th scope="col">
+                    Nhà cung cấp
+                </th>
+                <th scope="col">
+                    Ngày tạo phiếu
+                </th>
+
+            </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr class="text-center">
+                    <td scope="row">
+                        <a href="@Url.Action("Detail", new { id = item.id })"
+                           class="link-primary">
+                            @item.id
+                        </a>
+                    </td>
+                    <td>
+                        @item.NhaCungCap.ten
+                    </td>
+                    <td>
+                        @getDateFormat(item.ngay_tao_phieu)
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <nav class="d-flex flex-row justify-content-end" aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (var i = 1; i <= ViewBag.pageCount; i++)
+                {
+                    <li class="page-item">
+                        <a class="page-link @getActivePage(i)"
+                           href="@Url.Action("Index", "PhieuNhap", new { page = i })">
+                            @i
+                        </a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

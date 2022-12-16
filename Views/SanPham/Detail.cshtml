@@ -1,0 +1,317 @@
+﻿@using QuanLyCuaHangBanDienThoai.Models
+@model SanPham
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var variants = ViewBag.variants as IQueryable<BienTheSanPham>;
+}
+
+@functions{
+
+    public string GetImageSrc(string imgSrc)
+    {
+        return string.IsNullOrEmpty(imgSrc) ? "/Content/img/default-thumbnail.png" : imgSrc;
+    }
+
+    public string GetVariantName(BienTheSanPham item)
+    {
+        return item.SanPham.ten + " " + item.ThongSoSanPham.mau_sac + " " + item.ThongSoSanPham.dung_luong + " " + item.ThongSoSanPham.ram;
+    }
+
+}
+
+<div class="d-flex flex-row justify-content-between mb-3">
+    <h2>Chi tiết sản phẩm</h2>
+    <div>
+        @* href="/sanpham/delete/@Model.id" *@
+        <a href="@Url.Action("Index", "SanPham")" class="btn btn-outline-primary mx-1">Thoát</a>
+        <button id="btnDeleteProduct" class="btn btn-danger mx-1">Xóa</button>
+        <button type="submit" class="btn btn-primary mx-1">Lưu</button>
+    </div>
+
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">Thông tin sản phẩm</div>
+
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-column w-75">
+                        <div class="row mb-2">
+                            <b class="col-3 bold">
+                                Tên sản phẩm
+                            </b>
+                            <p class="col-9">
+                                @Model.ten
+                            </p>
+                        </div>
+                        <div class="row mb-2">
+                            <b class="col-3 bold">
+                                Mô tả
+                            </b>
+                            <p class="col-9">
+                                @Model.mo_ta
+                            </p>
+                        </div>
+                        <div class="row mb-2">
+                            <b class="col-3 bold">
+                                Thương hiệu
+                            </b>
+                            <p class="col-9">
+                                @Html.DisplayFor(modelItem => Model.ThuongHieu.ten)
+                            </p>
+                        </div>
+
+                    </div>
+                    <div style="width: 200px; height: 200px;">
+                        <img src="@GetImageSrc(Model.hinh_anh)"
+                             class="img-thumbnail"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="card-title">Các biến thể sản phẩm</div>
+            <div class="card-title">
+                <a href="#" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>Thêm biến thể
+                </a>
+            </div>
+        </div>
+        <table id="variants" class="table table-responsive table-hover bg-white align-middle">
+            <thead>
+            <tr>
+                <th scope="col">
+                    Hình ảnh
+                </th>
+                <th scope="col">
+                    Tên biến thể
+                </th>
+                <th scope="col">
+                    Giá bán
+                </th>
+                <th scope="col">
+                    Giá nhập
+                </th>
+                <th scope="col">
+
+                </th>
+            </tr>
+            </thead>
+
+            @foreach (var item in variants)
+            {
+                <tr>
+                    <td style="width: 100px; height: 100px;">
+                        <img src="@GetImageSrc(item.hinh_anh)" class="img-thumbnail">
+                    </td>
+                    <td>
+                        @GetVariantName(item)
+                    </td>
+                    <td>
+                        @String.Format("{0:N0}", item.gia_ban)
+                    </td>
+                    <td>
+                        @String.Format("{0:N0}", item.gia_nhap)
+                    </td>
+                    <td>
+                        <div class="d-flex flex-row justify-content-center align-items-center">
+                            <button class="btn btn-outline-secondary mx-2"
+                                    data-variant-id="@item.id"
+                                    data-product-id="@Model.id"
+                                    data-variant-name="@GetVariantName(item)"
+                                    data-gia-ban="@String.Format("{0:N0}", item.gia_ban)"
+                                    data-gia-nhap='@String.Format("{0:N0}", item.gia_nhap)'>
+                                Sửa
+                            </button>
+                            <button data-variant-id="@item.id"
+                                    data-product-id="@Model.id"
+                                    class="btn btn-outline-danger mx-2">
+                                Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="yesNoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="yesNoModalLabel">Title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <a class="btn btn-danger yes-button">Xóa</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="changeVariantModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="changeVariantModalLabel">Title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form method="post" id="editVariantForm">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <p class="variant-name">
+
+                            </p>
+                        </div>
+
+                        <input name="productId" class="d-none product-id" value=""/>
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                Giá bán
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="inputGiaBan" id="inputGiaBan" value="0"/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">
+                                Giá nhập
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="inputGiaNhap" id="inputGiaNhap" value="0"/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <a class="btn btn-primary yes-button">Sửa</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handleInputPrice(value, inputPrice) {
+            if (typeof value == 'number') {
+                value = value.toString();
+            }
+            if (value.length >= 12) {
+                inputPrice.value = value.substring(0, value.length - 1);
+                return;
+            }
+            value = value.replaceAll(",", "");
+            
+            if (isNaN(value) || value === '' || value === undefined) {
+                inputPrice.value = '0';
+                return;
+            }
+            value = parseInt(value).toLocaleString("en-US");
+            inputPrice.value = value;
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Button
+            const btnDeleteProduct = document.querySelector("#btnDeleteProduct");
+            
+            // Yes no Modal
+            const yesNoModalElement = document.querySelector("#yesNoModal");
+            const yesNoModalLabel = document.querySelector('#yesNoModalLabel');
+            const yesNoModal = new bootstrap.Modal(yesNoModalElement, {});
+            
+            // Edit variant modal
+            const changeVariantModalElement = document.querySelector('#changeVariantModal');
+            const changeVariantModalLabel = document.querySelector('#changeVariantModalLabel');
+            const changeVariantModal = new bootstrap.Modal(changeVariantModalElement, {});
+            
+            // Xóa sản phẩm modal
+            btnDeleteProduct.addEventListener('click', () => {
+                yesNoModalLabel.textContent = 'Xóa sản phẩm';
+                yesNoModalElement.querySelector('.yes-button').setAttribute('href', '/sanpham/delete/@Model.id');
+                yesNoModal.show();
+            })
+            
+            const btnDeleteVariants = document.querySelectorAll('#variants .btn-outline-danger');
+            
+            for (const btnDeleteVariant of btnDeleteVariants) {
+                const variantId = btnDeleteVariant.dataset.variantId;
+                const productId = btnDeleteVariant.dataset.productId;
+                btnDeleteVariant.addEventListener('click', () => deleteVariant(variantId, productId));
+            }
+            
+            function deleteVariant(variantId, productId) {
+                yesNoModalLabel.textContent = 'Xóa biến thể sản phẩm';
+                yesNoModalElement.querySelector('.yes-button').setAttribute('href', `/variants/delete/${variantId}?productId=${productId}`);
+                yesNoModal.show();
+            }
+            
+            
+            const inputGiaBan = document.querySelector("#inputGiaBan");
+            const inputGiaNhap = document.querySelector("#inputGiaNhap");
+            
+            inputGiaBan.addEventListener("input", (e) => {
+                handleInputPrice(e.target.value, inputGiaBan);
+            });
+            
+            inputGiaNhap.addEventListener("input", (e) => {
+                handleInputPrice(e.target.value, inputGiaNhap);
+            });            
+          
+            // Sửa biến thể sản phẩm
+            const btnEditVariants = document.querySelectorAll('#variants .btn-outline-secondary');
+            
+            for (const btnEditVariant of btnEditVariants) {
+                const variantId = btnEditVariant.dataset.variantId;
+                const productId = btnEditVariant.dataset.productId;
+                const variantName = btnEditVariant.dataset.variantName;
+                const giaBan = btnEditVariant.dataset.giaBan;
+                const giaNhap = btnEditVariant.dataset.giaNhap;
+                btnEditVariant.addEventListener('click', () => editVariant(variantId, productId, variantName, giaBan, giaNhap));
+            }
+            
+            function editVariant(variantId, productId, variantName, giaBan, giaNhap) {
+                changeVariantModalLabel.textContent = 'Sửa biến thể sản phẩm';
+                changeVariantModalElement.querySelector('.variant-name').textContent = variantName;
+                handleInputPrice(giaBan, inputGiaBan);
+                handleInputPrice(giaNhap, inputGiaNhap);
+                changeVariantModalElement.querySelector('.product-id').value = productId;
+                
+                changeVariantModalElement.querySelector('.yes-button').addEventListener('click', () => {
+                    const form = document.querySelector('#editVariantForm');
+                    form.action = `/variants/edit/${variantId}`;
+                    form.submit();
+                })
+                changeVariantModal.show();
+            }
+            
+            
+            
+            
+            
+            
+            
+    });
+
+</script>

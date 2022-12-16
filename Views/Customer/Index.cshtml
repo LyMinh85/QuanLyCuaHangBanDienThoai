@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Customer.css" rel="stylesheet">
+<div class="main">
+    @using (Html.BeginForm("Search", "Customer"))
+    {
+        <div class="search-bar" style="margin-bottom:30px">
+            <form class="search-form d-flex align-items-center" style="position:relative;">
+
+                <input type="text" name="searchString" placeholder="Search">
+                <input type="submit" style="margin-top:10px;border-radius:5px" value="Tìm kiếm" />
+                <span style="color:red;">
+                    @TempData["Loitk"]
+                </span>
+            </form>
+        </div>
+    }
+        <h1 style="text-align:center;color:blue">QUẢN LÝ KHÁCH HÀNG</h1>
+        <div class="table_Customer">
+            <table>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Tên
+                    </th>
+                    <th>
+                        Số điện thoại
+                    </th>
+                    <th>
+                        Ngày sinh
+                    </th>
+                    <th>
+                        Thao tác
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <!-- Hiển thị ID của đối tượng với -->
+                            @item.id
+                        </td>
+                        <td>
+                            @item.ten
+                        </td>
+
+                        <td>
+                            <!-- Hiển thị ID của đối tượng với -->
+                            @item.sdt
+                        </td>
+                        <td>
+                            @item.ngay_sinh.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            <div class="fix_btn">@Html.ActionLink("SỬA", "Edit", new { id = item.id })</div>
+                            <div class="del_btn">@Html.ActionLink("XÓA", "Delete", new { id = item.id })</div>
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+
+        @using (Html.BeginForm("Create", "Customer"))
+        {
+            <div class="add_form_Customer">
+                <h1 style="text-align:center;color:white;padding-top:50px;padding-bottom:50px">THÊM KHÁCH HÀNG</h1>
+                <form class="row g-3">
+                    <div>
+                        <label class="form-label" style="font-weight:bold">Họ và tên khách hàng</label>
+                        <input type="text" class="form-control" id="inputName" name="inputName">
+                        <span style="color:red">
+                            @TempData["Loiten"]
+                        </span>
+                    </div>
+
+                    <div>
+                        <label class="form-label" style="font-weight:bold">Ngày sinh</label>
+                        <input type="date" class="form-control" id="inputDate" name="inputDate">
+                        <span style="color:red">
+                            @TempData["Loilich"]
+                        </span>
+                    </div>
+                    <div>
+                        <label class="form-label" style="font-weight:bold">Số điện thoại</label>
+                        <input type="text" class="form-control" id="inputNumber" name="inputNumber">
+                        <span style="color:red">
+                            @TempData["Loisdt"]
+                        </span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" style="margin-left:70px">Thêm khách hàng</button>
+                    </div>
+                </form>
+            </div>
+
+        }
+    </div>
+
+
+

@@ -1,0 +1,21 @@
+﻿@using System.Text
+@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>title</h2>
+<header class="header d-flex align-items-center">
+    <div class="search-bar" style="z-index: 0; background: none; position: inherit; visibility: visible; opacity: 1; box-shadow: none">
+        <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+    </div><!-- End Search Bar -->
+</header>

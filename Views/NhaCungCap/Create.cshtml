@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tạo Nhà Cung Cấp mới</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">Nội dung nhà cung cấp</div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label for="inputName5" class="form-label">
+                        Tên Nhà Cung Cấp
+                    </label>
+                    <input type="text" class="form-control" name="ten"    />
+                </div>
+                <div class="col-md-12">
+                    <label for="inputName5" class="form-label">
+                        SĐT
+                    </label>
+                    <input type="text" class="form-control" name="sdt"    />
+                </div>
+                <div class="col-md-12">
+                    <label for="inputName5" class="form-label">
+                        Địa Chỉ
+                    </label>
+                    <input type="text" class="form-control" name="diachi"   />
+                </div>
+                <div class="col-md-12">
+                    <label for="inputName5" class="form-label">
+                        Mã Số Thuế
+                    </label>
+                    <input type="text" class="form-control" name="ma_thue"  />
+                </div>
+            </div>
+
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    }
+<div>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</div>

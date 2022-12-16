@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-bg-primary text-center ">Delete</h2>
+
+<div class="form-group">
+    <div class=" form-group">
+        <label class="col-sm-2 control-label">    Id Loại: </label>
+        @Html.TextBox("id", null, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class=" form-group">
+
+        <label class="col-sm-2 control-label"> Tên thể loại: </label>
+        @Html.TextBox("ten", null, new { @class = "form-control", @readonly = "readonly" })
+
+    </div>
+    <div class=" form-group ">
+        <label class="col-sm-2 control-label"> Địa chỉ : </label>
+        @Html.TextBox("dia_chi", null, new { @class = "form-control", @readonly = "readonly" })
+
+    </div>
+
+    @using (Html.BeginForm("Delete", "KhoHang", FormMethod.Post))
+    {
+            <button style="margin-top:10px"  type="submit" class=" btn btn-primary " > Delete </button>
+    }
+</div>
+
+<div class="form-label">
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/Customer.css" rel="stylesheet">
+<div class="main">
+    <h2>Tìm kiếm khách hàng với từ khóa:@ViewData["s"] </h2>
+    <div class="table_Customer">
+
+        <table>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Số điện thoại
+                </th>
+                <th>
+                    Ngày sinh
+                </th>
+                <th>
+                    Thao tác
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <!-- Hiển thị ID của đối tượng với -->
+                        @item.id
+                    </td>
+                    <td>
+                        @item.ten
+                    </td>
+
+                    <td>
+                        <!-- Hiển thị ID của đối tượng với -->
+                        @item.sdt
+                    </td>
+                    <td>
+                        @item.ngay_sinh.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        <div class="fix_btn">@Html.ActionLink("SỬA", "Edit", new { id = item.id })</div>
+                        <div class="del_btn">@Html.ActionLink("XÓA", "Delete", new { id = item.id })</div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="fix_btn" style="text-align:center">@Html.ActionLink("Trở về", "Index")</div>
+</div>

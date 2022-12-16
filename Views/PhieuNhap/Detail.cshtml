@@ -1,0 +1,123 @@
+﻿@using QuanLyCuaHangBanDienThoai.Models
+@model PhieuNhap
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ctpns = ViewBag.ctpns as IQueryable<ChiTietPhieuNhap>;
+}
+
+@functions{
+
+    public string GetImageSrc(string imgSrc)
+    {
+        return string.IsNullOrEmpty(imgSrc) ? "/Content/img/default-thumbnail.png" : imgSrc;
+    }
+
+    public string GetVariantName(BienTheSanPham item)
+    {
+        return item.SanPham.ten + " " + item.ThongSoSanPham.mau_sac + " " + item.ThongSoSanPham.dung_luong + " " + item.ThongSoSanPham.ram;
+    }
+    private string getDateFormat(DateTime? date)
+    {
+        if (date == null)
+        {
+            return "";
+        }
+        var notNullDate = date ?? DateTime.Now;
+        return notNullDate.ToString("dd/M/yyyy");
+    }
+}
+
+<h2>Detail</h2>
+
+
+<div>
+    <div class="d-flex flex-row justify-content-between mb-3">
+        <h2>Tạo phiếu nhập hàng</h2>
+        <div>
+            <a href="@Url.Action("Index", "PhieuNhap")" class="btn btn-outline-primary mx-1">Thoát</a>
+            <button type="submit" class="btn btn-primary mx-1">Lưu</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Thông tin phiếu nhập</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <b class="col-3 bold">
+                                Nhà cung cấp
+                            </b>
+                            <p class="col-9">
+                                @Model.NhaCungCap.ten
+                            </p>
+                        </div>
+                        <div class="col-md-12">
+                            <b class="col-3 bold">
+                                Ngày tạo phiếu
+                            </b>
+                            <p class="col-9">
+                                @getDateFormat(Model.ngay_tao_phieu)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Begin Chi tiết phiếu nhập -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">Chi tiết phiếu nhập</div>
+                    <table class="table table-responsive table-hover bg-white align-middle text-center">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Sản phẩm
+                                </th>
+                                <th scope="col">
+                                    Giá nhập
+                                </th>
+                                <th scope="col">
+                                    Số lượng nhập
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="chiTietPhieuNhap">
+                            @foreach (var ctpn in ctpns)
+                            {
+                                <tr>
+                                    <td scope="row">
+                                        @GetVariantName(ctpn.BienTheSanPham)
+                                    </td>
+                                    <td>
+                                        @ctpn.BienTheSanPham.gia_nhap
+                                    </td>
+                                    <td>
+                                        @ctpn.so_luong
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Begin Chi tiết phiếu nhập -->
+
+        <textarea id="listCtpn" class="form-control d-none" name="listCtpn"></textarea>
+
+    </div>
+
+</div>

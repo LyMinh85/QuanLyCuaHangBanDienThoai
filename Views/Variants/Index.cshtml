@@ -1,0 +1,96 @@
+﻿@using QuanLyCuaHangBanDienThoai.Models
+@using QuanLyCuaHangBanDienThoai.Controllers
+@model IQueryable<VariantsController.TonKho>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listKho = ViewBag.listKho as IQueryable<Kho>;
+    var idkhoDuocChon = ViewBag.idkhoDuocChon as int?;
+}
+
+@functions{
+
+    public string GetImageSrc(string imgSrc)
+    {
+        return string.IsNullOrEmpty(imgSrc) ? "/Content/img/default-thumbnail.png" : imgSrc;
+    }
+
+    public string GetVariantName(BienTheSanPham item)
+    {
+        return item.SanPham.ten + " " + item.ThongSoSanPham.mau_sac + " " + item.ThongSoSanPham.dung_luong + " " + item.ThongSoSanPham.ram;
+    }
+
+    public string kiemTraKhoDuocChon(int idKho, int? idKhoDuocChon)
+    {
+        if (idKho == idKhoDuocChon)
+        {
+            return "selected";
+        }
+        return "";
+    }
+
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="card-title">Quản lý tồn kho</div>
+        </div>
+        <form action="@Url.Action("Index")" method="post">
+            <div class="d-flex flex-row">
+                <select class="form-select h-50 w-50 me-2" name="idKho">
+                    @foreach (var kho in listKho)
+                    {
+                        <option value="@kho.id" @kiemTraKhoDuocChon(kho.id, idkhoDuocChon)>@kho.ten</option>
+                    }
+                </select>
+                <button class="btn btn-primary">Đổi kho</button>
+            </div>
+        </form>
+        <table id="variants" class="table table-responsive table-hover bg-white align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Hình ảnh
+                    </th>
+                    <th scope="col">
+                        Tên biến thể
+                    </th>
+                    <th scope="col">
+                        Giá bán
+                    </th>
+                    <th scope="col">
+                        Giá nhập
+                    </th>
+                    <th scope="col">
+                        Số lượng
+                    </th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 100px; height: 100px;">
+                        <img src="@GetImageSrc(item.variant.hinh_anh)" class="img-thumbnail">
+                    </td>
+                    <td>
+                        @GetVariantName(item.variant)
+                    </td>
+                    <td>
+                        @String.Format("{0:N0}", item.variant.gia_ban)
+                    </td>
+                    <td>
+                        @String.Format("{0:N0}", item.variant.gia_nhap)
+                    </td>
+                    <td>
+                        @String.Format("{0:N0}", item.sanPhamTonKho.so_luong)
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</div>
