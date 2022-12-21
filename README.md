@@ -152,7 +152,7 @@ INSERT INTO HoaDon
 VALUES
   (GETDATE()),
   (GETDATE()),
-  (3, GETDATE())
+  (GETDATE())
 
 
 INSERT INTO ThuongHieu(id, ten, hinh_anh)

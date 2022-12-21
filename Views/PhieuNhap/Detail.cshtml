@@ -29,12 +29,9 @@
     }
 }
 
-<h2>Detail</h2>
-
-
 <div>
     <div class="d-flex flex-row justify-content-between mb-3">
-        <h2>Tạo phiếu nhập hàng</h2>
+        <h2>Xem phiếu nhập hàng</h2>
         <div>
             <a href="@Url.Action("Index", "PhieuNhap")" class="btn btn-outline-primary mx-1">Thoát</a>
             <button type="submit" class="btn btn-primary mx-1">Lưu</button>
@@ -80,6 +77,9 @@
                         <thead>
                             <tr>
                                 <th scope="col">
+                                    Hình ảnh
+                                </th>
+                                <th scope="col">
                                     Sản phẩm
                                 </th>
                                 <th scope="col">
@@ -95,11 +95,14 @@
                             @foreach (var ctpn in ctpns)
                             {
                                 <tr>
+                                    <td style="width: 100px; height: 100px;">
+                                        <img src="@GetImageSrc(ctpn.BienTheSanPham.hinh_anh)" class="img-thumbnail">
+                                    </td>
                                     <td scope="row">
                                         @GetVariantName(ctpn.BienTheSanPham)
                                     </td>
                                     <td>
-                                        @ctpn.BienTheSanPham.gia_nhap
+                                        @String.Format("{0:N0}", ctpn.BienTheSanPham.gia_nhap)
                                     </td>
                                     <td>
                                         @ctpn.so_luong

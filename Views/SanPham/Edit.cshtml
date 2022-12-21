@@ -1,233 +1,112 @@
 ﻿@using QuanLyCuaHangBanDienThoai.Models
+@model SanPham
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var ThuongHieus = ViewBag.ThuongHieus as IQueryable<ThuongHieu>;
-    var inValidName = ViewBag.inValidName as String;
-    var inValidPrice = ViewBag.inValidPrice as String;
-    var isError = ViewBag.isError as String;
-    var price = ViewBag.price as String;
-    if (String.IsNullOrEmpty(price))
-    {
-        price = "0";
-    }
+    var thuongHieus = ViewBag.thuongHieus as IQueryable<ThuongHieu>;
 }
 
 @functions{
-    public string checkValid(String error)
+
+    public string GetImageSrc(string imgSrc)
     {
-        return String.IsNullOrEmpty(error) ? "" : "is-invalid";
+        return string.IsNullOrEmpty(imgSrc) ? "/Content/img/default-thumbnail.png" : imgSrc;
     }
+
+    public string GetVariantName(BienTheSanPham item)
+    {
+        return item.SanPham.ten + " " + item.ThongSoSanPham.mau_sac + " " + item.ThongSoSanPham.dung_luong + " " + item.ThongSoSanPham.ram;
+    }
+
 }
 
-<form method="post" action="/sanpham/create" @isError enctype='multipart/form-data'>
-    <div class="d-flex flex-row justify-content-between mb-3">
-        <h2>Thêm sản phẩm mới</h2>
-        <div>
-            <a href="@Url.Action("Index", "SanPham")" class="btn btn-outline-primary mx-1">Thoát</a>
-            <button type="submit" class="btn btn-primary mx-1">Lưu</button>
-        </div>
+<form method="post" action="@Url.Action("Edit", "SanPham", new { id = Model.id })" enctype='multipart/form-data'>
 
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">Thông tin sản phẩm</div>
-                    <!-- Multi Columns Form -->
-                    <div class="row g-3">
-                        <div class="col-md-12">
-                            <label for="inputName5" class="form-label">
-                                Tên sản phẩm
-                            </label>
-                            <input type="text"
-                                   class="form-control @checkValid(inValidName)"
-                                   name="name"
-                                   id="ten"
-                                   value="@ViewBag.name" />
-                            <div class="invalid-feedback">
-                                @inValidName
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="inputEmail5" class="form-label">
-                                Mô tả sản phẩm
-                            </label>
-                            <textarea rows="4"
-                                      class="form-control"
-                                      name="description"
-                                      id="inputEmail5"
-                                      value="@ViewBag.description"></textarea>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label for="inputEmail5" class="form-label">
-                                Thương hiệu
-                            </label>
-                            <div class="d-flex flex-row">
-                                <select class="form-select h-50 w-50 me-2" name="brandId">
-                                    <option value="0">Chọn thương hiệu</option>
-                                    @foreach (var thuongHieu in ThuongHieus)
-                                    {
-                                        <option value="@thuongHieu.id">@thuongHieu.ten</option>
-                                    }
-                                </select>
-                                <button class="btn btn-primary">
-                                    Thêm thương hiệu
-                                </button>
-                            </div>
-
-                        </div>
-                    </div><!-- End Multi Columns Form -->
-                </div>
+    <div class="row mb-3 justify-content-between">
+        <h2 class="col-12 col-md-8">Sửa thông tin sản phẩm</h2>
+        <div class="col-12 col-md-4">
+            <div class="d-flex flex-row justify-content-md-end">
+                <a href="@Url.Action("Detail", "SanPham", new { id = Model.id} )" class="btn btn-outline-primary mx-1">Quay lại</a>
+                <button type="submit" class="btn btn-primary mx-1">Sửa thông tin</button>
             </div>
         </div>
-
-        <div class="col-lg-6">
-            <!-- Begin row -->
-            <div class="row">
-
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title">Ảnh sản phẩm</div>
-                            <div class="row g-3">
-                                <div class="col-md-12">
-                                    <div class="file-loading">
-                                        <input id="input-image"
-                                               name="file"
-                                               type="file"
-                                               class="file"
-                                               data-browse-on-zone-click="true"
-                                               data-allowed-file-extensions='["jpg", "png"]'>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End row -->
-
-        </div>
-
-
     </div>
 
-    <!--Begin Price-->
     <div class="row">
-        <div class="col-12">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-title">Giá sản phẩm</div>
-                    <div class="row">
-                        <div class="col-12 row align-items-center mb-3 ">
-                            <div class="col-3">
-                                <label for="inputPassword6" class="col-form-label">Giá bán</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="text"
-                                       class="form-control accessibility-issue--error"
-                                       name="basePrice" id="inputGiaBan" value="0" />
-                            </div>
-                        </div>
+                    <div class="card-title text-center text-md-start">Thông tin sản phẩm</div>
 
-                        <div class="col-12 row align-items-center mb-3 ">
-                            <div class="col-3">
-                                <label for="inputPassword6" class="col-form-label">Giá nhập</label>
-                            </div>
-                            <div class="col-9">
+                    <div class="row justify-content-center justify-content-md-start">
+                        <div class="col-12 d-flex flex-column w-75">
+                            <div class="row mb-2">
+                                <label class="form-label">
+                                    Tên sản phẩm
+                                </label>
                                 <input type="text"
                                        class="form-control"
-                                       name="basePrice" id="inputGiaNhap" value="0" />
+                                       name="name"
+                                       value="@Model.ten" />
+                                <div class="invalid-feedback">
+
+                                </div>
                             </div>
+                            <div class="row mb-2">
+                                <label class="form-label">
+                                    Thương hiệu
+                                </label>
+                                <select class="form-select" name="brandId">
+                                    @foreach (var thuongHieu in thuongHieus)
+                                    {
+                                        if (thuongHieu.id == Model.id_thuong_hieu)
+                                        {
+                                            <option value="@thuongHieu.id" selected>
+                                                @thuongHieu.ten
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@thuongHieu.id">
+                                                @thuongHieu.ten
+                                            </option>
+                                        }
+
+
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-8" style="">
+                            <img src="@GetImageSrc(Model.hinh_anh)"
+                                 class="img-thumbnail"
+                                 style="width: 200px; height: 200px;" />
+                            <input class="form-control" type="file" name="file" id="inputFile">
                         </div>
                     </div>
-
-                </div>
-            </div>
-        </div>
-    </div><!--End Price-->
-
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">Thông số sản phẩm</div>
-                    <div class="row">
-                        <div class="col-12 row align-items-center mb-3 ">
-                            <div class="col-3">
-                                <label for="inputPassword6" class="col-form-label">Màu sắc</label>
-                            </div>
-                            <div class="col-9">
-                                <input name="mauSac" type="text" id="inputRam" class="form-control"
-                                       placeholder="Gõ ký tự và mỗi thuộc tính cách nhau bằng dấu ," />
-                            </div>
-                        </div>
-                        <div class="col-12 row align-items-center mb-3">
-                            <div class="col-3">
-                                <label for="inputPassword6" class="col-form-label">Dung lượng</label>
-                            </div>
-                            <div class="col-9">
-                                <input name="dungLuong" type="text" id="inputDungLuong" class="form-control"
-                                       placeholder="Gõ ký tự và mỗi thuộc tính cách nhau bằng dấu ,">
-                            </div>
-                        </div>
-                        <div class="col-12 row align-items-center mb-3">
-                            <div class="col-3">
-                                <label for="inputPassword6" class="col-form-label">Ram</label>
-                            </div>
-                            <div class="col-9">
-                                <input name="ram" type="text" id="inputRam" class="form-control"
-                                       placeholder="Gõ ký tự và mỗi thuộc tính cách nhau bằng dấu ,">
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 </form>
 
-
 <script>
-    function handleInputPrice(e, inputPrice) {
-        let value = e.target.value.replaceAll(".", "");
-        console.log('value: ' + value);
-        if (isNaN(value) || value === '') {
-            inputPrice.value = 0;
-            return;
-        }
-        value = parseInt(value).toLocaleString("vi-VN");
-        inputPrice.value = value;
-    }
     document.addEventListener("DOMContentLoaded", function () {
-        $("#input-image").fileinput();
+        const inputFile = document.querySelector("#inputFile");
+        const preview = document.querySelector('.img-thumbnail');
+        inputFile.addEventListener('input', () => {
+            const file = inputFile.files[0];
+            const reader = new FileReader();
 
-        const inputGiaBan = document.querySelector("#inputGiaBan");
-        const inputGiaNhap = document.querySelector("#inputGiaNhap");
+            reader.onloadend = () => {
+                preview.src = reader.result;
+            }
 
-        inputGiaBan.addEventListener("input", (e) => {
-            handleInputPrice(e, inputGiaBan);
-        });
-
-        inputGiaNhap.addEventListener("input", (e) => {
-            handleInputPrice(e, inputGiaNhap);
-        });
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        })
     });
-
-
-    /*        const inputMauSac = document.querySelector("#inputMauSac");
-            const inputDungLuong = document.querySelector("#inputDungLuong");
-            const inputRam = document.querySelector("#inputRam");*/
-
-
-
-
 </script>

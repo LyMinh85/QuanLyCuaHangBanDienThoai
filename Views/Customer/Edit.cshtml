@@ -5,20 +5,22 @@
 }
 <link href="~/Content/Customer.css" rel="stylesheet">
 <div class="main">
+    <div class="form_del_edit">
 
-    <div style="text-align: center; font-size: 25px;width:50%;margin:0px auto;border:solid 1px black; background-color:whitesmoke">
-        Tên khách hàng:
-        @Model.ten
-    </div>
-    <hr>
-    <div style="text-align: center; font-size: 25px;width:50%; margin: 0px auto; border: solid 1px black; background-color: whitesmoke">
-        Số điện thoại:
-        @Model.sdt
-    </div>
-    <hr />
-    <div style="text-align: center; font-size: 25px; width: 50%; margin: 0px auto; border: solid 1px black; background-color: whitesmoke">
-        Ngày sinh:
-        @Model.ngay_sinh.ToString("dd/MM/yyyy")
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label" style="font-weight:bold">Tên khách hàng</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" value="@Model.ten" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label" style="font-weight:bold">Số điện thoại</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" value="@Model.sdt" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label" style="font-weight:bold">Ngày sinh</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" value="@Model.ngay_sinh.ToString("dd/MM/yyyy")" readonly>
+        </div>
     </div>
     @using (Html.BeginForm("Edit", "Customer"))
     {

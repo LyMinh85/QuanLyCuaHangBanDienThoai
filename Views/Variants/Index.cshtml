@@ -35,7 +35,18 @@
 <div class="card">
     <div class="card-body">
         <div class="d-flex flex-row justify-content-between">
-            <div class="card-title">Quản lý tồn kho</div>
+            <!-- Begin Search Bar -->
+            <header class="header d-flex align-items-center justify-content-between ps-0" style="box-shadow: none;">
+                <div class="card-title">Quản lý tồn kho</div>
+                <div class="search-bar" style="z-index: 0; background: none; position: inherit; visibility: visible; opacity: 1; box-shadow: none">
+                    <form class="search-form d-flex align-items-center" method="POST" action="@Url.Action("Search", "Variants")">
+                        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                        <button type="submit" title="Search">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </header><!-- End Search Bar -->
         </div>
         <form action="@Url.Action("Index")" method="post">
             <div class="d-flex flex-row">

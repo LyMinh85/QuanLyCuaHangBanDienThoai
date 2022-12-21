@@ -21,13 +21,14 @@
 
 }
 
-<div class="d-flex flex-row justify-content-between mb-3">
-    <h2>Chi tiết sản phẩm</h2>
-    <div>
-        @* href="/sanpham/delete/@Model.id" *@
-        <a href="@Url.Action("Index", "SanPham")" class="btn btn-outline-primary mx-1">Thoát</a>
-        <button id="btnDeleteProduct" class="btn btn-danger mx-1">Xóa</button>
-        <button type="submit" class="btn btn-primary mx-1">Lưu</button>
+<div class="row mb-3 justify-content-between">
+    <h2 class="col-12 col-md-8">Chi tiết sản phẩm</h2>
+    <div class="col-12 col-md-4">
+        <div class="d-flex flex-row justify-content-md-end">
+            <a href="@Url.Action("Index", "SanPham")" class="btn btn-outline-primary mx-1">Thoát</a>
+            <button id="btnDeleteProduct" class="btn btn-outline-danger mx-1">Xóa</button>
+            <a href="@Url.Action("Edit", "SanPham", new { id = Model.id })" class="btn btn-primary mx-1">Sửa thông tin</a>
+        </div>
     </div>
 
 </div>
@@ -39,35 +40,35 @@
             <div class="card-body">
                 <div class="card-title">Thông tin sản phẩm</div>
 
-                <div class="d-flex flex-row justify-content-between">
-                    <div class="d-flex flex-column w-75">
+                <div class="row">
+                    <div class="col-8 d-flex flex-column w-75">
                         <div class="row mb-2">
-                            <b class="col-3 bold">
+                            <b class="col-12 col-md-3 bold">
                                 Tên sản phẩm
                             </b>
-                            <p class="col-9">
+                            <p class="col-12 col-md-9">
                                 @Model.ten
                             </p>
                         </div>
                         <div class="row mb-2">
-                            <b class="col-3 bold">
+                            <b class="col-12 col-md-3 bold">
                                 Mô tả
                             </b>
-                            <p class="col-9">
+                            <p class="col-12 col-md-9">
                                 @Model.mo_ta
                             </p>
                         </div>
                         <div class="row mb-2">
-                            <b class="col-3 bold">
+                            <b class="col-12 col-md-3 bold">
                                 Thương hiệu
                             </b>
-                            <p class="col-9">
+                            <p class="col-12 col-md-9">
                                 @Html.DisplayFor(modelItem => Model.ThuongHieu.ten)
                             </p>
                         </div>
 
                     </div>
-                    <div style="width: 200px; height: 200px;">
+                    <div class="col-4" style="width: 200px; height: 200px;">
                         <img src="@GetImageSrc(Model.hinh_anh)"
                              class="img-thumbnail"/>
                     </div>
@@ -107,41 +108,43 @@
                 </th>
             </tr>
             </thead>
-
-            @foreach (var item in variants)
-            {
-                <tr>
-                    <td style="width: 100px; height: 100px;">
-                        <img src="@GetImageSrc(item.hinh_anh)" class="img-thumbnail">
-                    </td>
-                    <td>
-                        @GetVariantName(item)
-                    </td>
-                    <td>
-                        @String.Format("{0:N0}", item.gia_ban)
-                    </td>
-                    <td>
-                        @String.Format("{0:N0}", item.gia_nhap)
-                    </td>
-                    <td>
-                        <div class="d-flex flex-row justify-content-center align-items-center">
-                            <button class="btn btn-outline-secondary mx-2"
-                                    data-variant-id="@item.id"
-                                    data-product-id="@Model.id"
-                                    data-variant-name="@GetVariantName(item)"
-                                    data-gia-ban="@String.Format("{0:N0}", item.gia_ban)"
-                                    data-gia-nhap='@String.Format("{0:N0}", item.gia_nhap)'>
-                                Sửa
-                            </button>
-                            <button data-variant-id="@item.id"
-                                    data-product-id="@Model.id"
-                                    class="btn btn-outline-danger mx-2">
-                                Xóa
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            }
+            <tbody>
+                @foreach (var item in variants)
+                {
+                    <tr>
+                        <td style="width: 100px; height: 100px;">
+                            <img src="@GetImageSrc(item.hinh_anh)" class="img-thumbnail">
+                        </td>
+                        <td>
+                            @GetVariantName(item)
+                        </td>
+                        <td>
+                            @String.Format("{0:N0}", item.gia_ban)
+                        </td>
+                        <td>
+                            @String.Format("{0:N0}", item.gia_nhap)
+                        </td>
+                        <td>
+                            <div class="d-flex flex-row justify-content-center align-items-center">
+                                <button class="btn btn-outline-secondary mx-2"
+                                        data-variant-id="@item.id"
+                                        data-product-id="@Model.id"
+                                        data-variant-name="@GetVariantName(item)"
+                                        data-gia-ban="@String.Format("{0:N0}", item.gia_ban)"
+                                        data-gia-nhap='@String.Format("{0:N0}", item.gia_nhap)'>
+                                    Sửa
+                                </button>
+                                <button data-variant-id="@item.id"
+                                        data-product-id="@Model.id"
+                                        class="btn btn-outline-danger mx-2">
+                                    Xóa
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            
 
 
         </table>
@@ -178,9 +181,9 @@
                 <form method="post" id="editVariantForm">
                     <div class="row g-3">
                         <div class="col-md-12">
-                            <p class="variant-name">
+                            <h5 class="variant-name fw-bold">
 
-                            </p>
+                            </h5>
                         </div>
 
                         <input name="productId" class="d-none product-id" value=""/>
@@ -305,13 +308,42 @@
                 })
                 changeVariantModal.show();
             }
-            
-            
-            
-            
-            
-            
-            
+
+
+
+        window.onresize = (e) => {
+            const table = document.querySelector('table');
+            const tableHeadEle = table.querySelector('thead tr');
+            const tableBodyEle = table.querySelector('tbody');
+            const listTableRowEle = tableBodyEle.querySelectorAll('tr');
+
+            if (window.innerWidth <= 576) {
+                table.classList.remove('table-hover');
+
+                tableHeadEle.classList.add('d-none');
+
+                listTableRowEle.forEach(row => {
+                    row.classList.add('row');
+                    const listCellEle = row.querySelectorAll('td');
+                    listCellEle.forEach(cell => {
+                        cell.classList.add('col-12');
+                    })
+                });
+
+            } else {
+                table.classList.add('table-hover');
+
+                tableHeadEle.classList.remove('d-none');
+
+                listTableRowEle.forEach(row => {
+                    row.classList.remove('row');
+                    const listCellEle = row.querySelectorAll('td');
+                    listCellEle.forEach(cell => {
+                        cell.classList.remove('col-12');
+                    })
+                });
+            }
+        }
     });
 
 </script>

@@ -48,15 +48,15 @@
 
 
     <main>
-        <div class="container">
+        <div class="container-fluid">
 
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-0">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-md-6 col-12 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
-                                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                <a class="logo d-flex align-items-center w-auto">
                                     <span class="d-none d-lg-block">Hệ thống quản lý bán Điện Thoại</span>
                                 </a>
                             </div><!-- End Logo -->
@@ -74,35 +74,33 @@
 
                                         <div class="col-12">
 
-                                            <div class="row g-3 align-items-center">
-                                                <div class="col-auto">
+                                            <div class="col-12 row align-items-center">
+                                                <div class="col-12">
                                                     <label for="inputPassword6" class="col-form-label">Tài khoản:</label>
                                                 </div>
-                                                <div class="col-auto">
+                                                <div class="col-12">
                                                     <input name="username" type="text" id="inputUser" class="form-control" aria-describedby="passwordHelpInline">
                                                 </div>
-                                                <div>
+                                                <div class="col-12 text-danger">
                                                     @ViewData["invalidUsername"]
                                                 </div>
-                                                
+
                                             </div>
 
-                                            <div class="col-12">
-                                                <div class="row g-3 align-items-center">
-                                                    <div class="col-auto">
-                                                        <label for="inputPassword6" class="col-form-label">Mật khẩu:</label>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <input name="password" type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                                                    </div>
-                                                    <div>
-                                                        @ViewData["invalidPassword"]
-                                                    </div>
+                                            <div class="col-12 row align-items-center">
+                                                <div class="col-12">
+                                                    <label for="inputPassword6" class="col-form-label">Mật khẩu:</label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input name="password" type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                                </div>
+                                                <div class="col-12 text-danger">
+                                                    @ViewData["invalidPassword"]
                                                 </div>
                                             </div>
 
-                                            
-                                            <div class="col-12">
+
+                                            <div class="col-12 mt-3">
                                                 <button class="btn btn-primary w-100" type="submit">Đăng nhập</button>
                                                 <div>
                                                     @ViewData["loginSuccess"]
@@ -124,19 +122,6 @@
 
         </div>
     </main><!-- End #main -->
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-    </footer><!-- End Footer -->
 
     <script src="~/Scripts/nice-admin.js"></script>
     <script src="~/Scripts/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

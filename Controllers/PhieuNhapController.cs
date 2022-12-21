@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using QuanLyCuaHangBanDienThoai.Models;
+using static QuanLyCuaHangBanDienThoai.Controllers.VariantsController;
 
 namespace QuanLyCuaHangBanDienThoai.Controllers
 {
@@ -13,6 +14,23 @@ namespace QuanLyCuaHangBanDienThoai.Controllers
         private readonly DataClasses1DataContext _db = new DataClasses1DataContext();
         private readonly int pageSize = 5;
         // GET: /phieunhap/
+
+        public class PhieuNhapKho
+        {
+            public int Id { get; set; }
+            public string TenNhaCungCap { get; set; }
+            public DateTime NgayTao { get; set; }
+            public string TenKho { get; set; }
+
+            public PhieuNhapKho(int id, string tenNhaCungCap, DateTime ngayTao, string tenKho)
+            {
+                Id = id;
+                TenNhaCungCap = tenNhaCungCap;
+                NgayTao = ngayTao;
+                TenKho = tenKho;
+            }
+        }
+
         public ActionResult Index()
         {
             // Ko có số trang
@@ -21,20 +39,34 @@ namespace QuanLyCuaHangBanDienThoai.Controllers
             {
                 page = int.Parse(Request.Params["page"]);
             }
+
             var phieuNhaps 
                 = _db.PhieuNhaps
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(pn => pn);
-            
+                    .Select(pn => new { pn.id, pn.ngay_tao_phieu, pn.NhaCungCap.ten, pn.ChiTietPhieuNhaps });
+
+            var listPhieuNhaps = new List<PhieuNhapKho>();
+
+            foreach (var pn in phieuNhaps)
+            {
+                var tenKho = pn.ChiTietPhieuNhaps.First().BienTheSanPham.SanPhamTonKhos.First().Kho.ten;
+                var phieuNhapKho = new PhieuNhapKho(pn.id, pn.ten, pn.ngay_tao_phieu, tenKho);
+                listPhieuNhaps.Add(phieuNhapKho);
+            }
+
             var totalPhieuNhap = _db.PhieuNhaps.Count();
             var pageCount = Convert
                 .ToInt32(Math.Ceiling(totalPhieuNhap / Convert.ToDouble(pageSize)));
-            
+
+            var listKho = _db.Khos.Select(kho => kho);
+
             ViewBag.page = page;
             ViewBag.pageCount = pageCount;
+            ViewBag.listKho = listKho;
+           
             
-            return View(phieuNhaps);
+            return View(listPhieuNhaps);
         }
 
         [HttpGet]

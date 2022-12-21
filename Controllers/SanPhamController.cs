@@ -128,6 +128,9 @@ namespace QuanLyCuaHangBanDienThoai.Controllers
                     // file is uploaded
                     file.SaveAs(path);
                     sanPham.hinh_anh = relativePath;
+                } else
+                {
+                    sanPham.hinh_anh = "/Content/img/default-thumbnail.png";
                 }
 
                 if (brandId > 0)
@@ -228,8 +231,58 @@ namespace QuanLyCuaHangBanDienThoai.Controllers
         public ActionResult Edit(int id)
         {
             var sanPham = _db.SanPhams.FirstOrDefault(sp => sp.id == id);
+            var thuongHieus = _db.ThuongHieus.Select(h => h);
 
-            return View();
+            ViewBag.thuongHieus = thuongHieus;
+
+            return View(sanPham);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection, HttpPostedFileBase file)
+        {
+            var sanPham = _db.SanPhams.FirstOrDefault(sp => sp.id == id);
+            try
+            {
+                var isError = false;
+                var name = collection["name"];
+                var brandId = int.Parse(collection["brandId"]);
+
+                // Validate
+                if (string.IsNullOrEmpty(name))
+                {
+                    isError = true;
+                    ViewBag.inValidName = "Tên không được bỏ trống";
+                }
+
+                if (isError)
+                {
+                    return RedirectToAction("Edit", new { id });
+                }
+
+                sanPham.ten = name;
+                sanPham.id_thuong_hieu = brandId;
+
+                if (file != null)
+                {
+                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    string path = System.IO.Path.Combine(
+                        Server.MapPath("~/Content/img/products"), pic);
+                    string relativePath = "/Content/img/products/" + pic;
+                    // file is uploaded
+                    file.SaveAs(path);
+                    sanPham.hinh_anh = relativePath;
+                }
+
+                _db.SubmitChanges();
+
+                return RedirectToAction("Detail", new {id});
+            } catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return View();
+            }
+
         }
 
         // Post: /sanpham/search
@@ -244,7 +297,7 @@ namespace QuanLyCuaHangBanDienThoai.Controllers
             return View("Index", sanPhams);
         }
 
-        public String checkInputVariant(String inputVariant)
+        public string checkInputVariant(String inputVariant)
         {
             if (string.IsNullOrEmpty(inputVariant))
             {

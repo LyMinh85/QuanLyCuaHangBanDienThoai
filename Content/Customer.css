@@ -1,23 +1,24 @@
-﻿body{
+﻿body {
 }
 
-.main{
-    height:auto;
-    width:auto;
+.main {
+    height: auto;
+    width: auto;
 }
 
 .table_Customer {
     width: 100%;
-    height: 600px ;
+    height: 600px;
     border: solid 1px black;
     margin-top: 70px;
 }
-.table_Customer table {
-     display:block;
-     overflow-y: scroll;
-     height:600px;
-     width:100%;
-}
+
+    .table_Customer table {
+        display: block;
+        overflow-y: scroll;
+        height: 600px;
+        width: 100%;
+    }
 
     .table_Customer tr {
         width: 100%;
@@ -25,14 +26,14 @@
     }
 
     .table_Customer th {
-        text-align:center;
+        text-align: center;
         width: 25% !important;
         border: solid 1px black;
     }
 
     .table_Customer td {
         text-align: center;
-        width: 25%  !important;
+        width: 25% !important;
         border: solid 1px black;
         line-break: anywhere;
     }
@@ -47,21 +48,21 @@
     padding: 30px 70px;
 }
 
-.add_form_Customer div{
-    width:100%;
-    height:100px;
-    margin-bottom:20px;
-}
+    .add_form_Customer div {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 20px;
+    }
 
-.add_form_Customer input{
-    width:100%;
-}
+    .add_form_Customer input {
+        width: 100%;
+    }
 
 .edit_form_Customer {
-    display:block;
-    top:50px;
-    left:400px;
-    position:absolute;
+    display: block;
+    top: 50px;
+    left: 400px;
+    position: absolute;
     width: 40%;
     height: auto;
     background-color: lightblue;
@@ -76,43 +77,53 @@
 .fix_btn {
     line-height: 50px;
     border: solid 1px black;
-    display:block;
+    display: block;
     width: 150px;
     height: 50px;
     background-color: dodgerblue;
     margin: 10px auto;
 }
 
-.del_btn{
-    line-height:50px;
-    border:solid 1px black;
-    display:block;
+.del_btn {
+    line-height: 50px;
+    border: solid 1px black;
+    display: block;
     width: 150px;
     height: 50px;
     background-color: red;
     margin: 10px auto;
 }
 
-.fix_btn a{
-    width:100%;
-    height:100%;
-    display:block;
-    color:white;
+.fix_btn a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: white;
 }
 
 .del_btn a {
     width: 100%;
     height: 100%;
     display: block;
-    color:white;
+    color: white;
+    position: relative;
 }
 
-.fix_btn :hover{
-    background-color:black;
-    color:white;
+.fix_btn :hover {
+    background-color: black;
+    color: white;
 }
 
 .del_btn :hover {
     background-color: black;
     color: white;
+}
+
+.form_del_edit {
+    width: 30%;
+    height: auto;
+    margin: 10px auto;
+    border: solid 1px black;
+    border-radius: 5px;
+    padding: 20px
 }

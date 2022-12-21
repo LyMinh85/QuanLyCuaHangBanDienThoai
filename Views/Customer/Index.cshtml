@@ -20,30 +20,32 @@
         </div>
     }
         <h1 style="text-align:center;color:blue">QUẢN LÝ KHÁCH HÀNG</h1>
-        <div class="table_Customer">
-            <table>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Tên
-                    </th>
-                    <th>
-                        Số điện thoại
-                    </th>
-                    <th>
-                        Ngày sinh
-                    </th>
-                    <th>
-                        Thao tác
-                    </th>
-                </tr>
+        <div >
+            <table class="table table-hover bg-white text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            ID
+                        </th>
+                        <th scope="col">
+                            Tên
+                        </th>
+                        <th scope="col">
+                            Số điện thoại
+                        </th>
+                        <th scope="col">
+                            Ngày sinh
+                        </th>
+                        <th scope="col">
+                            Thao tác
+                        </th>
+                    </tr>
+                </thead>
 
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
+                        <td scope="row">
                             <!-- Hiển thị ID của đối tượng với -->
                             @item.id
                         </td>
@@ -59,8 +61,17 @@
                             @item.ngay_sinh.ToString("dd/MM/yyyy")
                         </td>
                         <td>
-                            <div class="fix_btn">@Html.ActionLink("SỬA", "Edit", new { id = item.id })</div>
-                            <div class="del_btn">@Html.ActionLink("XÓA", "Delete", new { id = item.id })</div>
+                            <div class="d-flex flex-row justify-content-center">
+                                <a class="btn btn-primary me-2"
+                                   href="@Url.Action("Edit", new { id = item.id })">
+                                    Sửa
+                                </a>
+                                <a class="btn btn-danger"
+                                   href="@Url.Action("Delete", new { id = item.id })">
+                                    Xóa
+                                </a>
+                            </div>
+
                         </td>
                     </tr>
                 }
