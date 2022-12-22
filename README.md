@@ -140,50 +140,6 @@ CREATE TABLE ChiTietHoaDon (
 
 INSERT INTO NHANVIEN
 VALUES
-  ('Ly Tuan Minh', '123', '2015-2-3', 'Ban hang', null, 'lyminh8565', '123456'),
-  ('Tran Quoc Nam', '321', '2015-2-3', 'Chu cua hang', null, 'admin', 'admin')
-
-INSERT INTO KhachHang
-VALUES
-  ('Huynh Ngoc Nam', '123', '2015-2-3', null),
-  ('Le Trung Nguyen', '321', '2015-2-3', null)
-
-INSERT INTO HoaDon
-VALUES
-  (GETDATE()),
-  (GETDATE()),
-  (GETDATE())
-
-
-INSERT INTO ThuongHieu(id, ten, hinh_anh)
-VALUES
-  ('Apple', null),
-  ('Samsung', null)
-
-INSERT INTO SanPham (id, ten, mo_ta, hinh_anh, id_thuong_hieu)
-VALUES
-  ('Iphone 12 pro max', 'Iphone 12 pro max bla bla bla...', null, 1),
-  ('Iphone 11 pro max', 'Bla bla bla bla bla bla...', null, 1)
-
-INSERT INTO ThongSoSanPham (id, ram, dung_luong, mau_sac)
-VALUES
-  ('8GB', '128GB', 'Xám'),
-  ('8GB', '128GB', 'Lam')
-
-
-INSERT INTO BienTheSanPham (id, hinh_anh, id_thong_so_san_pham, id_san_pham, gia_ban, gia_nhap)
-VALUES
-  (null, 100, 50),
-  (null, 100, 50)
-
-
-Insert into NhaCungCap 
-Values
-	('Apple', '12345', null),
-	('FPT shop', '3244', null )
-
-Insert into Kho
-Values
-	('Kho Q5', 'bla bla bla'),
-	('Kho Q1', 'Quan 1 gi do')
+  ('Ly Tuan Minh', '123', '2015-2-3', 'Nhan Vien', null, 'lyminh8565', '123456'),
+  ('Tran Quoc Nam', '321', '2015-2-3', 'admin', null, 'admin', 'admin')
 ```
